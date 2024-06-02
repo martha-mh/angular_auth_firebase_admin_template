@@ -7,12 +7,19 @@
             <c-card-body>
               <form cForm>
                 <h1>Login</h1>
+                <!-- Sección de mensajes-->
+                @if (message) {
+                  <div class="alert alert-{{type}}" role="alert">
+                    {{message}}
+                  </div>
+                }
+                <!---------------------->
                 <p class="text-body-secondary">Sign In to your account</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autoComplete="username" cFormControl placeholder="Username" />
+                  <input autoComplete="email" cFormControl placeholder="Email" name="email" [(ngModel)]="email"/>
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
@@ -23,16 +30,23 @@
                     cFormControl
                     placeholder="Password"
                     type="password"
+                    name="password"
+                    [(ngModel)]="password"
                   />
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button cButton class="px-4" color="primary">
-                      Login
+                    <button cButton class="px-4" color="primary" (click)="login()">
+                      @if (loadinglogin) {
+                        <c-spinner aria-hidden="false" size="sm"></c-spinner>Loading...
+                      }
+                      @else {
+                        Login
+                      }
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">
-                    <button cButton class="px-0" color="link">
+                    <button cButton class="px-0" color="link" (click)="toggleModal()">
                       Forgot password?
                     </button>
                   </c-col>
@@ -57,5 +71,37 @@
         </c-card-group>
       </c-col>
     </c-row>
+
+    <!-- Modal Forgot Password -->
+    <c-modal id="modalForgot" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+      <c-modal-header>
+        <h5 cModalTitle>Forgot Password</h5>
+        <button (click)="toggleModal()" cButtonClose></button>
+      </c-modal-header>
+      <c-modal-body>
+        <!-- Sección de mensajes del modal-->
+        @if (messagemodal) {
+          <div class="alert alert-{{typemodal}}" role="alert">
+            {{messagemodal}}
+          </div>
+        }
+        <!---------------------->
+        <input type="email" [(ngModel)]="emailforgot" name="emailforgot" placeholder="Enter your Email Address" cFormControl autoComplete="email">
+      </c-modal-body>
+      <c-modal-footer>
+        <button (click)="toggleModal()" cButton color="secondary">
+          Close
+        </button>
+        <button cButton color="primary" (click)="forgotpassword()">
+          @if (loadingforgot) {
+            <c-spinner aria-hidden="false" size="sm"></c-spinner>Loading...
+          }
+          @else {
+            Send Email
+          }
+        </button>
+      </c-modal-footer>
+    </c-modal>
+
   </c-container>
 </div>

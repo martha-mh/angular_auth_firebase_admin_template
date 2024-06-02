@@ -5,32 +5,44 @@
         <c-card class="mx-4">
           <c-card-body class="p-4">
             <form cForm>
-              <h1>Register</h1>
+              <h1>
+                <a routerLink="/login"><mat-icon aria-hidden="false" aria-label="Login Back" fontIcon="arrow_back"></mat-icon></a>
+                Register
+              </h1>
+              <!-- Sección de mensajes-->
+              @if (message) {
+                <div class="alert alert-{{type}}" role="alert">
+                  {{message}}
+                </div>
+              }
+              <!---------------------->
+
               <p class="text-body-secondary">Create your account</p>
               <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input autoComplete="name" cFormControl placeholder="Username" />
-              </c-input-group>
-              <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
-                <input autoComplete="email" cFormControl placeholder="Email" />
+                <input autoComplete="email" cFormControl placeholder="Email" name="email" [(ngModel)]="email" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" name="password" [(ngModel)]="password" />
               </c-input-group>
               <c-input-group class="mb-4">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" name="repeatpassword" [(ngModel)]="repeatpassword" />
               </c-input-group>
               <div class="d-grid">
-                <button cButton color="success">Create Account</button>
+                <button cButton color="success" (click)="register()">
+                  @if (loadingregister) {
+                    <c-spinner aria-hidden="false" size="sm"></c-spinner>Loading...
+                  }
+                  @else {
+                    Create Account
+                  }
+                </button>
               </div>
             </form>
           </c-card-body>
