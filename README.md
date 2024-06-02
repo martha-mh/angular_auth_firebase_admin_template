@@ -27,7 +27,7 @@ $ npm update
 
 ## Configuration (IMPORTANT)
 
-Place your Firebase Authentication settings in ´src/app/environments/environment.ts´.
+Place your Firebase Authentication settings in `src/app/environments/environment.ts`.
 
 ## Basic usage
 
